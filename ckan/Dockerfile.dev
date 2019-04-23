@@ -1,0 +1,29 @@
+FROM openknowledge/ckan-dev:2.7
+
+MAINTAINER Viderum <info@Viderum.com>
+
+# Install utilities
+RUN pip install ipdb ipdbplugin
+
+# Install any extensions needed by your CKAN instance
+# (Make sure to add the plugins to CKAN__PLUGINS in the .env file)
+# TODO: pin when possible
+RUN echo 'Installing extensions'
+RUN pip install --no-cache-dir git+https://github.com/ViderumGlobal/ckanext-spatial.git@nextgeoss#egg=ckanext-spatial
+RUN pip install --no-cache-dir -r https://raw.githubusercontent.com/ViderumGlobal/ckanext-spatial/v0.0.1/pip-requirements.txt
+RUN pip install -e git+https://github.com/NextGeoss/ckanext-harvest.git@many-jobs02#egg=ckanext-harvest
+RUN pip install -r https://raw.githubusercontent.com/ckan/ckanext-harvest/master/pip-requirements.txt
+RUN pip install -e git+https://github.com/ckan/ckanext-dcat.git#egg=ckanext-dcat
+RUN pip install -r https://raw.githubusercontent.com/ckan/ckanext-dcat/master/requirements.txt
+RUN pip install --no-cache-dir git+https://github.com/NextGeoss/ckanext-kpis.git@v0.3#egg=ckanext-kpis
+RUN pip install --no-cache-dir git+https://github.com/NextGeoss/ckanext-opensearch.git@collections#egg=ckanext-opensearch
+RUN pip install -r https://raw.githubusercontent.com/NextGeoss/ckanext-opensearch/master/requirements.txt
+RUN pip install --no-cache-dir git+https://github.com/NextGeoss/ckanext-nextgeossharvest.git@fix_ebvs#egg=ckanext-nextgeossharvest
+RUN pip install --no-cache-dir -r https://raw.githubusercontent.com/NextGeoss/ckanext-nextgeossharvest/release_test/requirements.txt
+RUN pip install --no-cache-dir git+https://github.com/NextGeoss/ckanext-admintools.git@24fe0e221c96db8615fa640f5f6547871b937082#egg=ckanext-admintools
+
+
+# Copy config files
+COPY crontabs/* /etc/crontabs/
+COPY docker-entrypoint.d/* /docker-entrypoint.d/
+COPY supervisor.d/* /etc/supervisord.d/
