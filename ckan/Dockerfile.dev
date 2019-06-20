@@ -10,7 +10,7 @@ RUN pip install ipdb ipdbplugin
 # TODO: pin when possible
 RUN echo 'Installing extensions'
 RUN pip install --no-cache-dir git+https://github.com/ViderumGlobal/ckanext-spatial.git@nextgeoss#egg=ckanext-spatial
-RUN pip install --no-cache-dir -r https://raw.githubusercontent.com/ViderumGlobal/ckanext-spatial/v0.0.1/pip-requirements.txt
+RUN pip install --no-cache-dir -r https://raw.githubusercontent.com/ViderumGlobal/ckanext-spatial/nextgeoss/pip-requirements.txt
 RUN pip install -e git+https://github.com/NextGeoss/ckanext-harvest.git@many-jobs02#egg=ckanext-harvest
 RUN pip install -r https://raw.githubusercontent.com/ckan/ckanext-harvest/master/pip-requirements.txt
 RUN pip install -e git+https://github.com/ckan/ckanext-dcat.git#egg=ckanext-dcat
