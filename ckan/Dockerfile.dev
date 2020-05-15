@@ -5,6 +5,10 @@ MAINTAINER Viderum <info@Viderum.com>
 # Install utilities
 RUN pip install ipdb ipdbplugin
 
+# Install GEOS
+ENV GEOS_VERSION=3.6.0
+RUN wget http://download.osgeo.org/geos/geos-${GEOS_VERSION}.tar.bz2 -O /tmp/geos-${GEOS_VERSION}.tar.bz2 && tar -xf /tmp/geos-${GEOS_VERSION}.tar.bz2 -C /tmp && cd /tmp/geos-${GEOS_VERSION} && ./configure && make && make install && rm -rf /t$
+
 # Install any extensions needed by your CKAN instance
 # (Make sure to add the plugins to CKAN__PLUGINS in the .env file)
 # TODO: pin when possible
